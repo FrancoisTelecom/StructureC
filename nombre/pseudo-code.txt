@@ -1,0 +1,41 @@
+(1)
+(2)Un arbre binaire localement complet est un arbre binaire dont chacun des noeuds possèdent soit 0 soit 2 fils.Donc notre arbre nest pas binaire car il peut avoir qu'un seul fils droit ou gauche.
+(3)OUI
+(4)je ne sais pas
+(5)
+(6)L’arbre B+ diffère légèrement de l’arbre B, en ceci que toutes les données sont stockées exclusivement dans des feuilles, et celles-ci sont reliées entre elles.
+------------------------------------------------------
+Q ?
+peut on metre 2 fois le même nombre?
+------------------------------------------------------
+Méthode Recherche
+def recherche(ARBRE, valeur)
+Début 
+	Si(valeur==A) ALORS
+	return A;
+	ELSEIF(valeur<A) ALORS
+	recherche(Gauche,valeur);
+	ELSE 
+	recherche(droite,valeur);
+	FSI
+FIN
+Complexité O(log(n)?
+-----------------------------------------------------				
+Méthode Insertion
+
+
+
+-----------------------------------------------------			
+Méthode Suppression
+
+
+
+-----------------------------------------------------			
+fonction principale:
+->Main
+->CreationArbre
+->Inserer
+->Rechercher
+->Supprimer
+->equilibrage
+-----------------------------------------------------			
