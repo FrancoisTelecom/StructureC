@@ -8,7 +8,17 @@
 Q ?
 peut on metre 2 fois le même nombre?
 ------------------------------------------------------
-Méthode Recherche
+fonction principale:
+->Main
+->CreationArbre
+->Inserer
+->Rechercher
+->Supprimer
+->equilibrage
+->isPremier					done
+->triCroissant
+-----------------------------------------------------
+function Recherche
 def recherche(ARBRE, valeur)
 Début
 	Si(valeur==A) ALORS
@@ -21,30 +31,23 @@ Début
 FIN
 Complexité O(log(n)?
 -----------------------------------------------------
-Méthode Insertion
+function Insertion
 
 
 
 -----------------------------------------------------
-Méthode Suppression
+function Suppression
 
 
 
 -----------------------------------------------------
-fonction principale:
-->Main
-->CreationArbre
-->Inserer
-->Rechercher
-->Supprimer
-->equilibrage
-->isPremier
-->triCroissant
--------------f----------------------------------------
+
 function isPremier (valeur)
-	char chaine[100]
-	pour i=2, i<valeur i++
-  	si valeur%i == 0
-			si valeur == i
-	char *tmp = valeur
-	sprintf(chaine, "nb premier", )
+	int T = 0 //sert de booléens
+	int i = 2 // unutile de commancer à 0 ou 1 pour les modulos
+	tant que i<=val && t ==0
+	 	float tmp = val % i
+		SI tmp == 0 && valeur != i T=1
+		i++
+	SI T == 0 return 0 //nb premier
+	SINON return 1 //nb non premier

@@ -2,6 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+int isPremier(int val); //la valeur qui va être étudier
+
+
+int main(int argc, char const *argv[]) {
+  int tab[] = {1,8,8,78,24,46};
+  printf("Hello World\n");
+  printf("%d\n",isPremier(7));
+  return 0;
+}
+
 int isPremier(int val){
   int T = 0;
   int i = 2;
@@ -12,11 +23,4 @@ int isPremier(int val){
   }
   if (T==0) return T ; //T = 0 --> nb Premier
   else return T; // T = 1 -->nb non premier
-}
-
-int main(int argc, char const *argv[]) {
-  //int tab[5] = {1,8,8,78,24,46};
-  printf("Hello World\n");
-  printf("%d\n",isPremier(7));
-  return 0;
 }
