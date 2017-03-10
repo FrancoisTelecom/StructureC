@@ -10,27 +10,27 @@ peut on metre 2 fois le même nombre?
 ------------------------------------------------------
 Méthode Recherche
 def recherche(ARBRE, valeur)
-Début 
+Début
 	Si(valeur==A) ALORS
 	return A;
 	ELSEIF(valeur<A) ALORS
 	recherche(Gauche,valeur);
-	ELSE 
+	ELSE
 	recherche(droite,valeur);
 	FSI
 FIN
 Complexité O(log(n)?
------------------------------------------------------				
+-----------------------------------------------------
 Méthode Insertion
 
 
 
------------------------------------------------------			
+-----------------------------------------------------
 Méthode Suppression
 
 
 
------------------------------------------------------			
+-----------------------------------------------------
 fonction principale:
 ->Main
 ->CreationArbre
@@ -38,4 +38,13 @@ fonction principale:
 ->Rechercher
 ->Supprimer
 ->equilibrage
------------------------------------------------------			
+->isPremier
+->triCroissant
+-------------f----------------------------------------
+function isPremier (valeur)
+	char chaine[100]
+	pour i=2, i<valeur i++
+  	si valeur%i == 0
+			si valeur == i
+	char *tmp = valeur
+	sprintf(chaine, "nb premier", )
