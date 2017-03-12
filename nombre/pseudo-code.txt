@@ -51,3 +51,8 @@ function isPremier (valeur)
 		i++
 	SI T == 0 return 0 //nb premier
 	SINON return 1 //nb non premier
+---------------------------------------------------
+
+a look 
+https://fr.slideshare.net/rchbeir/arbre-b
+le point pdf
