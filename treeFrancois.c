@@ -4,12 +4,12 @@
 
 
 typedef struct noeud noeud ;
-struct noeud {
+typedef struct noeud {
   int BalancedFactor;
    noeud *keyG;
    noeud *keyD;
    noeud *keyP;
-};
+} noeud;
 
 
 int isPremier(int val); //la valeur qui va être étudier
@@ -17,8 +17,10 @@ int isPremier(int val); //la valeur qui va être étudier
 
 
 int main(int argc, char const *argv[]) {
-  noeud *monNoeud = NULL;
+  int val = 4;
+  noeud *monNoeud = malloc(sizeof(noeud));
   monNoeud->BalancedFactor = 4;
+  //printf(monNoeud->BalancedFactor);
   int tab[] = {1,8,8,78,24,46};
   printf("Hello World\n");
   printf("%d\n",isPremier(7));

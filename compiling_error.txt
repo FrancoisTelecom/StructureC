@@ -1,0 +1,7 @@
+F:\github\StructureC\treeFrancois.c: In function 'main':
+F:\github\StructureC\treeFrancois.c:22:10: error: redefinition of 'monNoeud'
+   noeud *monNoeud = NULL;
+          ^
+F:\github\StructureC\treeFrancois.c:21:10: note: previous definition of 'monNoeud' was here
+   noeud *monNoeud = malloc(sizeof(noeud));
+          ^
