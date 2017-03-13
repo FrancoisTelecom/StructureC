@@ -10,17 +10,18 @@ typedef struct noeud {
 
 
 int isPremier(int val); //la valeur qui va être étudier
-//void CreateTtree(noeud* Nnoeud);
+int recherche(noeud *monNoeud, int value);
 
 
 int main(int argc, char const *argv[]) {
   int val = 4;
   noeud *monNoeud = malloc(sizeof(noeud));
-
-  //printf(monNoeud->BalancedFactor);
+  monNoeud->value = 30;
+  printf("%d\n",recherche(monNoeud, 30));
   int tab[] = {1,8,8,78,24,46};
   printf("Hello World\n");
   printf("%d\n",isPremier(7));
+  free(monNoeud);
   return 0;
 }
 
@@ -33,5 +34,17 @@ int isPremier(int val){
     i++;
   }
   if (T==0) return T ; //T = 0 --> nb Premier
-  else return T; // T = 1 -->nb non premier
+  else return T; // T = 1 -->nb non-premier
+}
+
+
+int recherche(noeud *monNoeud, int value)
+{
+    while(monNoeud)
+    {
+        if(value == monNoeud->value) return value;
+        if(value > monNoeud->value ) monNoeud = monNoeud->keyD;
+        else monNoeud = monNoeud->keyG;
+    }
+    return 0;
 }
