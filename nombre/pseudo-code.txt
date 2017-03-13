@@ -50,9 +50,20 @@ function isPremier (valeur)
 		SI tmp == 0 && valeur != i T=1
 		i++
 	SI T == 0 return 0 //nb premier
-	SINON return 1 //nb non premier
+	SINON return 1 //nb non-premier
 ---------------------------------------------------
 
 a look 
 https://fr.slideshare.net/rchbeir/arbre-b
 le point pdf
+
+---------------------------------------------------
+
+  Calcul du BalancedFactor
+    -profondeur de gauche + la profondeur de droite
+		si le BF à la valeur [-1, 0 ou 1] alors l'arbre est équilibrer
+		sinon pas équilibrer
+		1 - prendre un première feuille (avec le deep le plus élévé)
+		2 - prendre son parent et calculer son BF si bon alors passer à une autre feuille
+		sinon on prend le fil droit et gauche et on prend la valeur médium qui devient parent la plus petite devient fils gauche et la plus grande fils droit
+		3 - quand les plus petites valeurs son traités on passe  la valeur du dessus jusqu'à
