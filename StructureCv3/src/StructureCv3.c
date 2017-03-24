@@ -1,0 +1,117 @@
+/*
+ ============================================================================
+ Name        : StructureCv3.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#define DEGRE 4 //-> order = 2
+#include "struct.c"
+
+/*struct tree {
+	int leaf;      // 0-> false, 1->true
+	int numKeys;     //how many keys does this node contain?
+	int element[DEGRE];
+	struct tree *stree[DEGRE+1];   //kids[i] holds nodes < keys[i] fils de l'arbre
+} ;
+
+typedef struct tree *bTree;*/
+
+/*typedef struct bTree {
+	int leaf;      // 0-> false, 1->true
+	int numKeys;     //how many keys does this node contain?
+	int element[DEGRE];
+	struct tree *stree[DEGRE+1];   //kids[i] holds nodes < keys[i] fils de l'arbre
+}bTree;*/
+
+
+
+bTree *initialisation(); //build Btree with 1 racine, 2 nodes and 6 leaves
+int search(bTree *tree, int val);
+
+int main() {
+	initialisation();
+	puts("!!!Hello World!!!");
+
+	free(initialisation());
+	return EXIT_SUCCESS;
+}
+
+
+bTree *initialisation(){
+	bTree* racine = (bTree*)malloc(sizeof(bTree));
+	racine->leaf=0;
+	racine->numKeys=1;
+	racine->element[0]=51;
+
+	bTree* noeud1 = (bTree*)malloc(sizeof(bTree));
+	noeud1->leaf=0;
+	noeud1->numKeys=2;
+	noeud1->element[0]=11;
+	noeud1->element[1]=30;
+	racine->stree[0]=noeud1;
+
+	bTree* leaf1 = (bTree*)malloc(sizeof(bTree));
+	leaf1->leaf=1;
+	leaf1->numKeys=1;
+	leaf1->element[0]=27;
+	noeud1->stree[0]=leaf1;
+
+	bTree* leaf2 = (bTree*)malloc(sizeof(bTree));
+	leaf2->leaf=1;
+	leaf2->numKeys=3;
+	leaf2->element[0]=12;
+	leaf2->element[1]=15;
+	leaf2->element[2]=22;
+	noeud1->stree[1]=leaf2;
+
+	bTree* leaf3 = (bTree*)malloc(sizeof(bTree));
+	leaf3->leaf=1;
+	leaf3->numKeys=2;
+	leaf3->element[0]=35;
+	leaf3->element[1]=41;
+	noeud1->stree[2]=leaf3;
+
+	bTree* noeud2 = (bTree*)malloc(sizeof(bTree));
+	noeud2->leaf=0;
+	noeud2->numKeys=2;
+	noeud2->element[0]=66;
+	noeud2->element[1]=78;
+	racine->stree[1]=noeud2;
+
+	bTree* leaf4 = (bTree*)malloc(sizeof(bTree));
+	leaf4->leaf=1;
+	leaf4->numKeys=3;
+	leaf4->element[0]=53;
+	leaf4->element[1]=54;
+	leaf4->element[2]=63;
+	noeud2->stree[0]=leaf4;
+
+	bTree* leaf5 = (bTree*)malloc(sizeof(bTree));
+	leaf5->leaf=1;
+	leaf5->numKeys=4;
+	leaf5->element[0]=68;
+	leaf5->element[1]=69;
+	leaf5->element[2]=71;
+	leaf5->element[3]=76;
+	noeud2->stree[1]=leaf5;
+
+	bTree* leaf6 = (bTree*)malloc(sizeof(bTree));
+	leaf6->leaf=1;
+	leaf6->numKeys=3;
+	leaf6->element[0]=79;
+	leaf6->element[1]=84;
+	leaf6->element[2]=93;
+	noeud2->stree[2]=leaf6;
+
+}
+
+int search(bTree *tree, int val){
+
+
+}
