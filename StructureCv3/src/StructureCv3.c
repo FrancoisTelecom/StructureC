@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define DEGRE 4 //-> order = 2
-#include "struct.c"
+//#include "struct.c"
 
 /*struct tree {
 	int leaf;      // 0-> false, 1->true
@@ -23,20 +23,32 @@
 typedef struct tree *bTree;*/
 
 /*typedef struct bTree {
+
+
 	int leaf;      // 0-> false, 1->true
 	int numKeys;     //how many keys does this node contain?
 	int element[DEGRE];
 	struct tree *stree[DEGRE+1];   //kids[i] holds nodes < keys[i] fils de l'arbre
 }bTree;*/
 
+struct tree {
+	int leaf;      // 0-> false, 1->true
+	int numKeys;     //how many keys does this node contain?
+	int element[DEGRE];
+	struct tree *stree[DEGRE+1];   //kids[i] holds nodes < keys[i] fils de l'arbre
+} ;
+
+typedef struct tree *bTree;
 
 
 bTree *initialisation(); //build Btree with 1 racine, 2 nodes and 6 leaves
+int rechercherDansNoeud(bTree *tree, int val);
 int search(bTree *tree, int val);
 
 int main() {
-	initialisation();
-	puts("!!!Hello World!!!");
+	bTree arbre;
+	arbre = initialisation();
+	printf("search : %d\n",search(arbre,51));
 
 	free(initialisation());
 	return EXIT_SUCCESS;
@@ -112,6 +124,51 @@ bTree *initialisation(){
 }
 
 int search(bTree *tree, int val){
+	int result=0;
+	bTree ssArbre;
+	if (tree == NULL){
+		return 0;
+	}
+	else{
+		if(val<tree->element[0]){
+			return search(tree->stree[0],val);
+		}
+		else{
+			if(val>tree->element[tree->numKeys]){
+				return search(tree->stree[tree->numKeys],val);
+			}
+			else{
+				result = rechercherDansNoeud(tree, val, result, ssArbre);
+				if (result!=0){
+					return result;
+				}
+				else{
+					return search(ssArbre, val);
+				}
+			}
+		}
+	}
+}
 
+int rechercherDansNoeud(bTree *tree, int val, int estpresent, bTree ssArbre){
+	int g=1,d=tree->numKeys,m=0;
+	while(g!=d){
+		m=(g+d)/2;
+		if(tree->element[m]>=val){
+			d=m;
+		}
+		else{
+			g=m+1;
+		}
+	}
+	if(tree->element[g]==val){
+		estpresent=1;
+		ssArbre=NULL;
+	}
+	else{
+		estpresent=0;
+		ssArbre=tree->stree[g-1];
+	}
 
 }
+
