@@ -20,7 +20,7 @@ int search(bTree tree, int val);
 int main() {
 	bTree arbre;
 	arbre = initialisation();
-	printf("search : %d\n",search(arbre,69));
+	printf("search : %d\n",search(arbre,7));
 
 	free(initialisation());
 	return EXIT_SUCCESS;
@@ -48,9 +48,9 @@ bTree initialisation(){
 
 	bTree leaf1 = malloc(sizeof(*leaf1));
 	leaf1->leaf=1;
-	leaf1->numKeys=1;
-	leaf1->element[0]=27;
-	leaf1->element[1]=NULL;
+	leaf1->numKeys=2;
+	leaf1->element[0]=2;
+	leaf1->element[1]=7;
 	leaf1->element[2]=NULL;
 	leaf1->element[3]=NULL;
 	noeud1->stree[0]=leaf1;
@@ -125,7 +125,7 @@ int search(bTree tree, int val){
 		}
 		else{
 			if(val>tree->element[tree->numKeys-1]){
-				return search(tree->stree[tree->numKeys-1],val);
+				return search(tree->stree[tree->numKeys],val);
 			}
 			else{
 				//result = rechercherDansNoeud(tree, val, result, ssArbre);
@@ -134,18 +134,19 @@ int search(bTree tree, int val){
 						m=(g+d)/2;
 						if(tree->element[m]>=val){
 							d=m;
+							if(tree->element[m]==val){return val;}
 						}
 						else{
 							g=m+1;
 						}
 					}
-					if(tree->element[g-1]==val){
+					if(tree->element[g]==val){
 						result=val;
 						ssArbre=NULL;
 					}
 					else{
 						result=0;
-						ssArbre=tree->stree[g-1];
+						ssArbre=tree->stree[g];
 					}
 				if (result!=0){
 					return result;
@@ -175,7 +176,7 @@ int rechercherDansNoeud(bTree tree, int val, int estpresent, bTree ssArbre){
 	}
 	else{
 		estpresent=0;
-		ssArbre=tree->stree[g-1];
+		ssArbre=tree->stree[g];
 	}
 	return estpresent;
 }
