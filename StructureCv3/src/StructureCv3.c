@@ -17,12 +17,12 @@ bTree initialisation(); //build Btree with 1 racine, 2 nodes and 6 leaves
 int rechercherDansNoeud(bTree tree, int val,int estpresent, bTree ssArbre);
 int search(bTree tree, int val);
 bTree returnFilsNull(bTree tree); //permet d'initialier le sAbre à null
-bTree createLeaf(int tab[], int val);
+bTree createLeaf(int tab[], int val);//crée une feuille
 bTree insertion(bTree tree, int val);
-bTree returnElementNull(bTree tree);
+bTree returnElementNull(bTree tree);//return les élements à null
 int positionInsertion(bTree tree, int val);
-int isLeaf(bTree tree);
-bTree burst(bTree tree, int val);
+int isLeaf(bTree tree);//test si c'est une feuille
+bTree burst(bTree tree, int val);//éclatement d'un noeud
 
 int main() {
 	bTree arbre;
@@ -209,16 +209,16 @@ int rechercherDansNoeud(bTree tree, int val, int estpresent, bTree ssArbre){
 }
 
 bTree returnFilsNull(bTree tree){
-	int i=0;
-	for (i; i < DEGRE;i++) {
+	int i;
+	for (i=0; i < DEGRE;i++) {
 		tree->stree[i] = NULL;
 	}
 	return tree;
 }
 
 bTree returnElementNull(bTree tree){
-	int i=0;
-	for (i; i < DEGRE;i++) {
+	int i;
+	for (i=0; i < DEGRE;i++) {
 		tree->element[i] = NULL;
 	}
 	return tree;
@@ -248,6 +248,7 @@ bTree insertion(bTree tree, int val){
 		pos = positionInsertion(tree, val);
 		if(isLeaf(tree)==1){
 			tree->element[pos]=val;
+			tree->numKeys++;
 		}
 		if(tree->numKeys<=DEGRE){
 			return tree;
@@ -276,9 +277,25 @@ int isLeaf(bTree tree){
 }
 
 bTree burst(bTree tree, int val){
-	if(tree->numKeys==DEGRE){
-
+	int var,tmp[DEGRE+2];
+	for (var = 1; var <= tree->numKeys; var++) {
+		if(val<tree->element[var]){
+			tmp[var]=val;
+			tmp[var+1]=tree->element[var];
+			var++;
+		}
+		else{
+			tmp[var]=tree->element[var];
+		}
 	}
+	returnElementNull(tree);
+	for (var = 1; var <= (tree->numKeys+1)/2; var++) {
+		tree->element[var]=tmp[var];
+	}
+	if((tree->numKeys+1)%2==1){
+		//tree->element[var]tmp[(tree->numKeys+1)/2];
+	}
+
 }
 
 
