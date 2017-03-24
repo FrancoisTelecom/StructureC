@@ -16,7 +16,10 @@ typedef struct tree *bTree;
 bTree initialisation(); //build Btree with 1 racine, 2 nodes and 6 leaves
 int rechercherDansNoeud(bTree tree, int val,int estpresent, bTree ssArbre);
 int search(bTree tree, int val);
-bTree returnNull(bTree tree);
+bTree returnFilsNull(bTree tree); //permet d'initialier le sAbre à null
+bTree createLeaf(int tab[], int val);
+bTree insertion(bTree tree, int val);
+bTree returnElementNull(bTree tree);
 
 int main() {
 	bTree arbre;
@@ -50,7 +53,7 @@ bTree initialisation(){
 	racine->stree[0]=noeud1;
 
 	bTree leaf1 = malloc(sizeof(*leaf1));
-	returnNull(leaf1);
+	returnFilsNull(leaf1);
 	leaf1->leaf=1;
 	leaf1->numKeys=2;
 	leaf1->element[0]=NULL;
@@ -62,7 +65,7 @@ bTree initialisation(){
 
 
 	bTree leaf2 = malloc(sizeof(*leaf2));
-	returnNull(leaf2);
+	returnFilsNull(leaf2);
 	leaf2->leaf=1;
 	leaf2->numKeys=3;
 	leaf2->element[0]=NULL;
@@ -74,7 +77,7 @@ bTree initialisation(){
 
 
 	bTree leaf3 = malloc(sizeof(*leaf3));
-	returnNull(leaf3);
+	returnFilsNull(leaf3);
 	leaf3->leaf=1;
 	leaf3->numKeys=2;
 	leaf3->element[0]=NULL;
@@ -95,7 +98,7 @@ bTree initialisation(){
 	racine->stree[1]=noeud2;
 
 	bTree leaf4 = malloc(sizeof(*leaf4));
-	returnNull(leaf4);
+	returnFilsNull(leaf4);
 	leaf4->leaf=1;
 	leaf4->numKeys=3;
 	leaf4->element[0]=NULL;
@@ -107,7 +110,7 @@ bTree initialisation(){
 
 
 	bTree leaf5 = malloc(sizeof(*leaf5));
-	returnNull(leaf5);
+	returnFilsNull(leaf5);
 	leaf5->leaf=1;
 	leaf5->numKeys=4;
 	leaf5->element[0]=NULL;
@@ -118,7 +121,7 @@ bTree initialisation(){
 	noeud2->stree[1]=leaf5;
 
 	bTree leaf6 = malloc(sizeof(*leaf6));
-	returnNull(leaf6);
+	returnFilsNull(leaf6);
 	leaf6->leaf=1;
 	leaf6->numKeys=3;
 	leaf6->element[0]=NULL;
@@ -202,10 +205,49 @@ int rechercherDansNoeud(bTree tree, int val, int estpresent, bTree ssArbre){
 	return estpresent;
 }
 
-bTree returnNull(bTree tree){
+bTree returnFilsNull(bTree tree){
 	int i=0;
 	for (i; i < DEGRE;i++) {
 		tree->stree[i] = NULL;
 	}
 	return tree;
 }
+
+bTree returnElementNull(bTree tree){
+	int i=0;
+	for (i; i < DEGRE;i++) {
+		tree->element[i] = NULL;
+	}
+	return tree;
+}
+
+bTree createLeaf(int tab[], int ordre){
+	int var;
+	bTree tmp=malloc(sizeof(*tmp));
+	returnFilsNull(tmp);
+	returnElementNull(tmp);
+	tmp->leaf=1;
+	tmp->numKeys=ordre;
+	for (var = 0; var <= ordre; var++) {
+		tmp->element[var]=tab[var];
+	}
+	return tmp;
+}
+bTree insertion(bTree tree, int val){
+	int tab[DEGRE+1];
+	if (tree == NULL){
+		tab[1] = val;
+		return createLeaf(tab,1);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
