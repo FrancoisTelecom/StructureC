@@ -20,6 +20,9 @@ bTree returnFilsNull(bTree tree); //permet d'initialier le sAbre à null
 bTree createLeaf(int tab[], int val);
 bTree insertion(bTree tree, int val);
 bTree returnElementNull(bTree tree);
+int positionInsertion(bTree tree, int val);
+int isLeaf(bTree tree);
+bTree burst(bTree tree, int val);
 
 int main() {
 	bTree arbre;
@@ -222,6 +225,7 @@ bTree returnElementNull(bTree tree){
 }
 
 bTree createLeaf(int tab[], int ordre){
+
 	int var;
 	bTree tmp=malloc(sizeof(*tmp));
 	returnFilsNull(tmp);
@@ -233,20 +237,49 @@ bTree createLeaf(int tab[], int ordre){
 	}
 	return tmp;
 }
+
 bTree insertion(bTree tree, int val){
-	int tab[DEGRE+1];
+	int tab[DEGRE+1], pos=0;
 	if (tree == NULL){
 		tab[1] = val;
 		return createLeaf(tab,1);
 	}
+	else{
+		pos = positionInsertion(tree, val);
+		if(isLeaf(tree)==1){
+			tree->element[pos]=val;
+		}
+		if(tree->numKeys<=DEGRE){
+			return tree;
+		}
+		else{
 
+		}
+	}
 }
 
+int positionInsertion(bTree tree, int val){
+	int var;
+	for (var = 1; var < DEGRE+1; ++var) {
+		if(tree->element[var]==NULL){
+			return var;
+		}
+	}
+	return 0;
+}
 
+int isLeaf(bTree tree){
+	if (tree->leaf==1){
+		return 1;
+	}
+	return 0;
+}
 
+bTree burst(bTree tree, int val){
+	if(tree->numKeys==DEGRE){
 
-
-
+	}
+}
 
 
 
