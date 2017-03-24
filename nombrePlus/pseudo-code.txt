@@ -1,0 +1,69 @@
+(1)
+(2)Un arbre binaire localement complet est un arbre binaire dont chacun des noeuds possèdent soit 0 soit 2 fils.Donc notre arbre nest pas binaire car il peut avoir qu'un seul fils droit ou gauche.
+(3)OUI
+(4)je ne sais pas
+(5)
+(6)L’arbre B+ diffère légèrement de l’arbre B, en ceci que toutes les données sont stockées exclusivement dans des feuilles, et celles-ci sont reliées entre elles.
+------------------------------------------------------
+Q ?
+peut on metre 2 fois le même nombre?
+------------------------------------------------------
+fonction principale:
+->Main
+->CreationArbre
+->Inserer
+->Rechercher
+->Supprimer
+->equilibrage
+->isPremier					done
+->triCroissant
+-----------------------------------------------------
+function Recherche
+def recherche(ARBRE, valeur)
+Début
+	Si(valeur==A) ALORS
+	return A;
+	ELSEIF(valeur<A) ALORS
+	recherche(Gauche,valeur);
+	ELSE
+	recherche(droite,valeur);
+	FSI
+FIN
+Complexité O(log(n)?
+-----------------------------------------------------
+function Insertion
+
+
+
+-----------------------------------------------------
+function Suppression
+
+
+
+-----------------------------------------------------
+
+function isPremier (valeur)
+	int T = 0 //sert de booléens
+	int i = 2 // unutile de commancer à 0 ou 1 pour les modulos
+	tant que i<=val && t ==0
+	 	float tmp = val % i
+		SI tmp == 0 && valeur != i T=1
+		i++
+	SI T == 0 return 0 //nb premier
+	SINON return 1 //nb non-premier
+---------------------------------------------------
+
+a look 
+https://fr.slideshare.net/rchbeir/arbre-b
+le point pdf
+
+---------------------------------------------------
+
+  Calcul du BalancedFactor
+    -profondeur de gauche + la profondeur de droite
+		si le BF à la valeur [-1, 0 ou 1] alors l'arbre est équilibrer
+		sinon pas équilibrer
+		1 - prendre un première feuille (avec le deep le plus élévé)
+		2 - prendre son parent et calculer son BF si bon alors passer à une autre feuille
+		sinon on prend le fil droit et gauche et on prend la valeur médium qui devient parent la plus petite devient fils gauche et la plus grande fils droit
+		3 - quand les plus petites valeurs son traités on passe  la valeur du dessus jusqu'à
