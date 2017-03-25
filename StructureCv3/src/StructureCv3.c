@@ -23,12 +23,14 @@ bTree returnElementNull(bTree tree);//return les élements à null
 int positionInsertion(bTree tree, int val);
 int isLeaf(bTree tree);//test si c'est une feuille
 bTree burst(bTree tree, int val);//éclatement d'un noeud
+int searchPapa(bTree tree, int val);
 
 int main() {
 	bTree arbre;
 	arbre = initialisation();
-	printf("search : %d\n",search(arbre,15));
-	printf("All things right !");
+	//printf("search : %d\n",search(arbre,15));
+	//printf("All things right !");
+	printf("searchPapa : %d\n",searchPapa(arbre,2));
 	free(initialisation());//libère la mémoire de l'arbre en dur
 	return EXIT_SUCCESS;
 }
@@ -201,7 +203,7 @@ int search(bTree tree, int val){
 
 bTree returnFilsNull(bTree tree){//fonction init stree[] = null
 	int i;
-	for (i=0; i < DEGRE;i++) {
+	for (i=0; i <= DEGRE;i++) {
 		tree->stree[i] = NULL;
 	}
 	return tree;
@@ -209,7 +211,7 @@ bTree returnFilsNull(bTree tree){//fonction init stree[] = null
 
 bTree returnElementNull(bTree tree){//fonction init element[] = null
 	int i;
-	for (i=0; i < DEGRE;i++) {
+	for (i=0; i <= DEGRE;i++) {
 		tree->element[i] = NULL;
 	}
 	return tree;
@@ -269,6 +271,8 @@ int isLeaf(bTree tree){// renvoi si une feuille ou non
 
 bTree burst(bTree tree, int val){//eclatement d'un noeud
 	int var,tmp[DEGRE+2];
+	int tmpplus[(DEGRE/2)+1];
+	int compteurplus=0;
 	for (var = 1; var <= tree->numKeys; var++) { //crée un tableau tmp organiser ordre croissant avec une nouvelle valeur
 		if(val<tree->element[var]){
 			tmp[var]=val;
@@ -280,21 +284,82 @@ bTree burst(bTree tree, int val){//eclatement d'un noeud
 		}
 	}
 	returnElementNull(tree); //vide que les éléments du tableau
+	// 5 est à inserer
+	/*1 2 3 4 5
+	 * 1 2 ->arbre
+	 * 3 -> père
+	 * 4 5 ->creer feuille
+	 *
+	 * */
 
 	if((tree->numKeys+1)%2==1){
 		for (var = 1; var <= (tree->numKeys+1)/2; var++) { //si impaire on prend la valeur du milieu du tableau
 			tree->element[var]=tmp[var];//les plus petites valeurs(la moitier) sont ré-insérer dans le noeud
-
 			}
+		for (var = ((tree->numKeys+1)/2)+1; var <= DEGRE+1; var++) {
+			tmpplus[1+(var-DEGRE)]=tmp[var];
+			compteurplus++;
+
+		}
+		createLeaf(tmp[var],compteurplus );
 	}
+
+	/*1 2 3 5
+		 * 1 2  ->arbre
+		 *- -> père
+		 *3 5  ->creer feuille
+		 *
+		 * */
 	else{
 		for (var = 1; var <= ((tree->numKeys+1)/2)+1; var++) {//sinon ->pair on stock les plus petite +1
 			tree->element[var]=tmp[var];//les plus petites valeurs(la moitier+1) sont ré-insérer dans le noeud
 
 			}
 	}
+
 }
 
+int searchPapa(bTree tree, int val){
+	bTree papa;
+	papa=tree;
+	int var;
+	if (tree == NULL){
+			return 0;
+		}
 
+	if(val<tree->element[1]){
+		tree=tree->stree[0];
+		for (var = 1; var <= tree->numKeys; var++) {
+			if (tree->element[var] == val){
+				return papa->element[1];
+				//return papa;
+				}
+		}
+		return searchPapa(papa->stree[0],val);
+	}
+	else{
+		if(val>tree->element[tree->numKeys]){
+			tree=tree->stree[tree->numKeys];
+			for (var = 1; var <= tree->numKeys; var++) {
+				if (tree->element[var] == val){
+					return papa->element[1];
+					//return papa;
+				}
+			}
+			return searchPapa(papa->stree[tree->numKeys-1],val);
+		}
+		else{
+			tree=tree->stree[tree->numKeys-1];
+			for (var = 1; var <= tree->numKeys; var++) {
+					if (tree->element[var] == val){
+						return papa->element[1];
+								//return papa;
+					}
+		}
+		}
+	}
+
+	return 0;
+}
 
 
