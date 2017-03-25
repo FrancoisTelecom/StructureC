@@ -23,14 +23,17 @@ bTree returnElementNull(bTree tree);//return les élements à null
 int positionInsertion(bTree tree, int val);
 int isLeaf(bTree tree);//test si c'est une feuille
 bTree burst(bTree tree, int val);//éclatement d'un noeud
-int searchPapa(bTree tree, int val);
+bTree searchPapa(bTree tree, int val);
 
 int main() {
 	bTree arbre;
 	arbre = initialisation();
-	//printf("search : %d\n",search(arbre,15));
-	//printf("All things right !");
+	printf("search : %d\n",search(arbre,15));
+	printf("All things right !\n");
 	printf("searchPapa : %d\n",searchPapa(arbre,2));
+	burst(arbre, 36);
+	printf("insertion reussi");
+	printf("search : %d\n",search(arbre,36));
 	free(initialisation());//libère la mémoire de l'arbre en dur
 	return EXIT_SUCCESS;
 }
@@ -217,7 +220,7 @@ bTree returnElementNull(bTree tree){//fonction init element[] = null
 	return tree;
 }
 
-bTree createLeaf(int tab[], int ordre){
+bTree createLeaf(int *tab, int ordre){
 
 	int var;
 	bTree tmp=malloc(sizeof(*tmp));
@@ -247,7 +250,7 @@ bTree insertion(bTree tree, int val){//algo doc non évolu avec le temp
 			return tree;
 		}
 		else{
-
+			burst(tree, val);
 		}
 	}
 }
@@ -272,7 +275,8 @@ int isLeaf(bTree tree){// renvoi si une feuille ou non
 bTree burst(bTree tree, int val){//eclatement d'un noeud
 	int var,tmp[DEGRE+2];
 	int tmpplus[(DEGRE/2)+1];
-	int compteurplus=0;
+	int compteurplus=0,e,i,truc,tableau[DEGRE];
+	bTree chocolat;
 	for (var = 1; var <= tree->numKeys; var++) { //crée un tableau tmp organiser ordre croissant avec une nouvelle valeur
 		if(val<tree->element[var]){
 			tmp[var]=val;
@@ -299,11 +303,41 @@ bTree burst(bTree tree, int val){//eclatement d'un noeud
 		for (var = ((tree->numKeys+1)/2)+1; var <= DEGRE+1; var++) {
 			tmpplus[1+(var-DEGRE)]=tmp[var];
 			compteurplus++;
-
 		}
-		createLeaf(tmp[var],compteurplus );
-	}
+		int te=tmp[((tree->numKeys+1)/2)+1];// te ->mediane
+		tree=searchPapa(tree, tmp[((tree->numKeys+1)/2)+1]);
 
+		for (var = 0; var <= tree->numKeys; var++) {//ici on insert la valeur médiane dans le noeud
+			if (tree->element[var]==NULL){
+				tree->element[var]= te;
+			}
+		}
+		for(var = 0; var <= tree->numKeys; var++){//tri le tree->element en croissant
+			for(i = 0; i < tree->numKeys; i++) {
+				if(tree->element[var] > tree->element[var+1]){
+					truc = tree->element[var];
+					tree->element[var] = tree->element[var+1];
+					tree->element[var+1] = truc;
+				}
+			}
+		}
+
+		bTree tmptree=createLeaf(tmpplus,compteurplus);
+		for (var = 1; var < tree->numKeys; ++var) {
+			if(tmptree->element[1]<tree->element[i]){//decale les fils de l'abre de 1 valeurs
+				for (i = 0; i < tree->numKeys+1; ++i) {
+					chocolat = tree->stree[i];
+					tree->stree[i]=tree->stree[i+1];
+					tree->element[i+1] = chocolat;
+				}
+				tree->stree[var] = tmptree;
+			}
+		}
+
+
+
+	}
+	//cas pair non traité
 	/*1 2 3 5
 		 * 1 2  ->arbre
 		 *- -> père
@@ -313,13 +347,11 @@ bTree burst(bTree tree, int val){//eclatement d'un noeud
 	else{
 		for (var = 1; var <= ((tree->numKeys+1)/2)+1; var++) {//sinon ->pair on stock les plus petite +1
 			tree->element[var]=tmp[var];//les plus petites valeurs(la moitier+1) sont ré-insérer dans le noeud
-
 			}
 	}
-
 }
 
-int searchPapa(bTree tree, int val){
+bTree searchPapa(bTree tree, int val){
 	bTree papa;
 	papa=tree;
 	int var;
@@ -331,8 +363,8 @@ int searchPapa(bTree tree, int val){
 		tree=tree->stree[0];
 		for (var = 1; var <= tree->numKeys; var++) {
 			if (tree->element[var] == val){
-				return papa->element[1];
-				//return papa;
+				//return papa->element[1];
+				return papa;
 				}
 		}
 		return searchPapa(papa->stree[0],val);
@@ -342,8 +374,8 @@ int searchPapa(bTree tree, int val){
 			tree=tree->stree[tree->numKeys];
 			for (var = 1; var <= tree->numKeys; var++) {
 				if (tree->element[var] == val){
-					return papa->element[1];
-					//return papa;
+					//return papa->element[1];
+					return papa;
 				}
 			}
 			return searchPapa(papa->stree[tree->numKeys-1],val);
@@ -352,10 +384,10 @@ int searchPapa(bTree tree, int val){
 			tree=tree->stree[tree->numKeys-1];
 			for (var = 1; var <= tree->numKeys; var++) {
 					if (tree->element[var] == val){
-						return papa->element[1];
-								//return papa;
+						//return papa->element[1];
+						return papa;
 					}
-		}
+			}
 		}
 	}
 
