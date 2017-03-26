@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define DEGRE 4 //-> order = 2
-//#include "struct.c"
 
 struct tree {
 	int leaf;      // 0-> false, 1->true
@@ -12,9 +11,7 @@ struct tree {
 
 typedef struct tree *bTree;
 
-
 bTree initialisation(); //build Btree with 1 racine, 2 nodes and 6 leaves
-int rechercherDansNoeud(bTree tree, int val,int estpresent, bTree ssArbre);
 int search(bTree tree, int val);
 
 int main() {
@@ -22,8 +19,8 @@ int main() {
 	arbre = initialisation();
 	printf("search : %d\n",search(arbre,51));
 
-	free(initialisation());
-	return EXIT_SUCCESS;
+	//free(initialisation());
+	return 0;
 }
 
 
@@ -92,10 +89,12 @@ bTree initialisation(){
 	leaf6->element[1]=84;
 	leaf6->element[2]=93;
 	noeud2->stree[2]=leaf6;
+	return racine;
 }
 
 int search(bTree tree, int val){
 	int result=0;
+	int g=1,d=0,m=0;
 	bTree ssArbre;
 	if (tree == NULL){
 		return 0;
@@ -105,11 +104,30 @@ int search(bTree tree, int val){
 			return search(tree->stree[0],val);
 		}
 		else{
-			if(val>tree->element[tree->numKeys]){
-				return search(tree->stree[tree->numKeys],val);
+			if(val>tree->element[tree->numKeys-1]){
+				return search(tree->stree[tree->numKeys-1],val);
 			}
 			else{
-				result = rechercherDansNoeud(tree, val, result, ssArbre);
+				//result = rechercherDansNoeud(tree, val, result, ssArbre);
+				d=tree->numKeys-1;
+				while(g!=d){
+                m=(g+d)/2;
+                if(tree->element[m]>=val){
+                d=m;
+                }
+                else{
+                g=m+1;
+                }
+                }
+                if(tree->element[g]==val){
+                result=1;
+                ssArbre=NULL;
+                }
+                else{
+                result=0;
+                ssArbre=tree->stree[g-1];
+                }
+
 				if (result!=0){
 					return result;
 				}
@@ -121,24 +139,3 @@ int search(bTree tree, int val){
 	}
 }
 
-int rechercherDansNoeud(bTree tree, int val, int estpresent, bTree ssArbre){
-	int g=1,d=tree->numKeys,m=0;
-	while(g!=d){
-		m=(g+d)/2;
-		if(tree->element[m]>=val){
-			d=m;
-		}
-		else{
-			g=m+1;
-		}
-	}
-	if(tree->element[g]==val){
-		estpresent=1;
-		ssArbre=NULL;
-	}
-	else{
-		estpresent=0;
-		ssArbre=tree->stree[g-1];
-	}
-
-}
